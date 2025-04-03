@@ -1,38 +1,23 @@
-name: Run EasyMorph Job
+name: Run EasyMorph File on Windows
 
 on:
   push:
-    branches:
-      - main  # Runs workflow when changes are pushed to the main branch
-  workflow_dispatch:  # Allows manual triggering
+    paths:
+      - '**/*.morph'  # Triggers when any .morph file is pushed
+  workflow_dispatch: # Allows manual execution from GitHub Actions UI
 
 jobs:
-  run-morph:
+  run-easymorph:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4  # Fetches the latest code from GitHub
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Set PowerShell Execution Policy
-      run: Set-ExecutionPolicy Bypass -Scope Process -Force
-      shell: powershell
+      - name: Set Execution Policy for PowerShell
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 
-    - name: Install EasyMorph CLI (If Needed)
-      run: |
-        if (!(Test-Path "C:\easymorph\morph-cmd.exe")) {
-          Invoke-WebRequest -Uri "https://easymorph.com/download/morph-cli.zip" -OutFile "morph-cli.zip"
-          Expand-Archive -Path "morph-cli.zip" -DestinationPath "C:\easymorph"
-        }
-      shell: powershell
-
-    - name: Run EasyMorph Job
-      run: |
-        C:\easymorph\morph-cmd.exe -file "employee_department_table.morph" -param "ENVIRONMENT=DEV"
-      shell: cmd
-
-    - name: Upload Logs (if needed)
-      uses: actions/upload-artifact@v4
-      with:
-        name: morph-logs
-        path: C:\easymorph\logs\  # Change to your actual logs path
+      - name: Run EasyMorph File
+        run: |
+          powershell -ExecutionPolicy Bypass -Command "& 'Morph.exe' 'C:\Users\Mandar.Shinde\Repository\EasyMorph\employee_department_table.morph'"
