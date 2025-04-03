@@ -1,44 +1,19 @@
-name: EasyMorph ETL Automation
+name: Run EasyMorph on Local Machine
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - "**.morph"  # Runs only when a .morph file is changed
+  workflow_dispatch:  # Allows manual execution
 
 jobs:
-  run-easymorph-dev:
-    runs-on: windows-latest
-
+  run-morph:
+    runs-on: self-hosted  # This requires a self-hosted runner on your local machine
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install EasyMorph CLI
+      - name: Run EasyMorph project
+        shell: powershell
         run: |
-          curl -o EasyMorphCLI.zip https://easymorph.com/download/EasyMorphCLI.zip
-          powershell -Command "Expand-Archive -Path EasyMorphCLI.zip -DestinationPath .\easymorph"
-
-      - name: Run EasyMorph for Development
-        run: .\easymorph\EasyMorphCMD.exe -file "employee_department_table.morph" -param "ENVIRONMENT=DEV"
-
-      - name: Notify Success
-        run: echo "EasyMorph Execution for Development Completed!"
-      
-  run-easymorph-staging:
-    needs: run-easymorph-dev
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install EasyMorph CLI
-        run: |
-          curl -o EasyMorphCLI.zip https://easymorph.com/download/EasyMorphCLI.zip
-          powershell -Command "Expand-Archive -Path EasyMorphCLI.zip -DestinationPath .\easymorph"
-
-      - name: Run EasyMorph for Staging
-        run: .\easymorph\EasyMorphCMD.exe -file "employee_department_table.morph" -param "ENVIRONMENT=STAGING"
-
-      - name: Notify Success
-        run: echo "EasyMorph Execution for Staging Completed!" 
+          ./run-morph.ps1
