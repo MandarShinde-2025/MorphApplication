@@ -1,23 +1,22 @@
-name: Run PowerShell Command on Repository Changes
+name: Run EasyMorph PowerShell Script
 
 on:
   push:
     branches:
-      - main  # Runs when changes are pushed to the main branch
-  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
+      - main
+  workflow_dispatch:
 
 jobs:
-  run-command:
+  run-morph:
     runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Execution Policy for PowerShell
-        run: |
-          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+      - name: Set Execution Policy
+        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 
-      - name: Run PowerShell Command
+      - name: Run PowerShell Script
         run: |
-          powershell -ExecutionPolicy Bypass -Command "C:\Users\Mandar.Shinde\Repository\EasyMorph\run-morph.ps1"
+          & "C:\Users\Mandar.Shinde\Repository\EasyMorph\run-morph.ps1"
