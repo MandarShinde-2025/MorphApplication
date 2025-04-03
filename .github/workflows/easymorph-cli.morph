@@ -1,0 +1,19 @@
+name: Run EasyMorph on Local Machine
+
+on:
+  push:
+    paths:
+      - "**.morph"  # Runs only when a .morph file is changed
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  run-morph:
+    runs-on: self-hosted  # This requires a self-hosted runner on your local machine
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run EasyMorph project
+        shell: powershell
+        run: |
+          ./run-morph.ps1
