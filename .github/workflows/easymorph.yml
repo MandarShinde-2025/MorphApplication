@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger
 
 jobs:
   run-morph:
@@ -14,18 +14,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Debug: Show Current Directory
-        run: Get-Location
+      - name: Set Up Paths
+        run: echo "SCRIPT_PATH=${{ github.workspace }}\EasyMorph\run-morph.ps1" >> $GITHUB_ENV
 
-      - name: Debug: List Files in Directory
-        run: Get-ChildItem -Path "${{ github.workspace }}\EasyMorph"
-
-      - name: Check if PowerShell Script Exists
+      - name: Debug: Show Current Directory and Files
         run: |
-          if (Test-Path "${{ github.workspace }}\EasyMorph\run-morph.ps1") {
-            Write-Host "Script exists"
+          echo "Current Directory: $PWD"
+          echo "Listing Files..."
+          Get-ChildItem -Path "${{ github.workspace }}" -Recurse
+
+      - name: Ensure Script Exists
+        run: |
+          if (Test-Path "$env:SCRIPT_PATH") {
+            echo "Script found ✅"
           } else {
-            Write-Host "Script does NOT exist!"
+            echo "❌ Script not found at $env:SCRIPT_PATH"
             exit 1
           }
 
@@ -34,6 +37,5 @@ jobs:
 
       - name: Run PowerShell Script
         run: |
-          $scriptPath = "${{ github.workspace }}\EasyMorph\run-morph.ps1"
-          Write-Host "Running script at: $scriptPath"
-          & $scriptPath
+          echo "Executing script: $env:SCRIPT_PATH"
+          & $env:SCRIPT_PATH
