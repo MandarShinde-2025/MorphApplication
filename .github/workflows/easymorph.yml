@@ -1,41 +1,18 @@
-name: Run EasyMorph PowerShell Script
+name: Run EasyMorph on Local System
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:  # Allows manual trigger
+      - main  # Trigger only on the main branch
 
 jobs:
-  run-morph:
-    runs-on: windows-latest
+  trigger-local-job:
+    runs-on: ubuntu-latest  # GitHub-hosted runner
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set Up Paths
-        run: echo "SCRIPT_PATH=${{ github.workspace }}\EasyMorph\run-morph.ps1" >> $GITHUB_ENV
-
-      - name: Debug: Show Current Directory and Files
+      - name: Send Webhook to Local Machine
         run: |
-          echo "Current Directory: $PWD"
-          echo "Listing Files..."
-          Get-ChildItem -Path "${{ github.workspace }}" -Recurse
-
-      - name: Ensure Script Exists
-        run: |
-          if (Test-Path "$env:SCRIPT_PATH") {
-            echo "Script found ✅"
-          } else {
-            echo "❌ Script not found at $env:SCRIPT_PATH"
-            exit 1
-          }
-
-      - name: Set Execution Policy
-        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-
-      - name: Run PowerShell Script
-        run: |
-          echo "Executing script: $env:SCRIPT_PATH"
-          & $env:SCRIPT_PATH
+          curl -X POST http://106.215.180.181:8080/ -d '{
+            "status": "success",
+            "message": "GitHub Action completed"
+          }'
