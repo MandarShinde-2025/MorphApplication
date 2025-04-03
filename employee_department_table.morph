@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Version="29" AppVersion="5.9.1.6" ReadKey="readkey.rEU0sfRaHzY=.CmNKZF17AO50omkGnhWiuQ==.BKQaROvc/1Xknk/w+v2NztCyu3Tfi85KKPK198v4KaJsB6JJCH0PDxRJE3pUoGmbZ63LVJUxg0cxn30VSg5CDp6oeD4xG7RzQ3P9jO9zUJs=.8yw23/2qCU1BIdblvkto3vaEnnKNjhz1N6bZDYYsMYk=." WriteKeyPublic="BgIAAACkAABSU0ExAAgAAAEAAQA1yp+uDb2WW1WF4Z7DKkO8vRk7ENrwMgzZGq2ya56lxWu2U09XsOtgsefxh0hErgeEAS1hWsynm9mo1j6dn2s6y9dTtAomEdnMDtwAjzp7IyZkmTPZGG9E2xayzd7OWoDqvZuxklEN65UjyNugBmck4lZucvN7Xn2bLM5ZEhx93U8+qXlrWF4tO2Dkb1WlnLTTSG+8EvwD2QW9gq2b8h42g1ZpcF2XmzoZxzN9xC81Md7uSiO9mC7NQQW1ucju1C1xKuAsyicM8ZPfHdBOOjba8YXcSziOXrov5z4V+j+4n2MIutpsh1yAzMulNS7jI3f2IwdGIxDf+aqT9XkyBbap" StartModuleName="Main" EditedBy="PEP-PC-160\Mandar.Shinde" LastEdited="2025-04-02T15:00:50.5145124Z" ComplexityLevel="Beginner" Signature="UTMkVMsz1C6YMX2en5f0LqrGt/JHllOQA91DwmZBA6c=">
+  <Modules>
+    <Module Name="Main" AutoRun="true" SelectedGroupName="Group 1">
+      <Groups>
+        <Group Name="Group 1">
+          <Tables>
+            <Table Name="Employee_Data.csv" Left="0" Top="0" Width="415" Height="229" IsMinimized="false" ActiveActionIndex="0" ViewMode="Table">
+              <Actions>
+                <ImportDelimitedTextAction DecimalSeparator="Point" ThousandSeparator="Space" ShowParsingErrors="false" IgnoreQuoting="false" NumericValuesTreatmentOption="AlwaysAsNumbers" ColumnsDontHaveHeaders="false" LoadAllColumns="true" AddColumnsWhenRowsHaveMoreValuesThanHeaders="false">
+                  <InputFileDefinition Mode="Single">
+                    <FileName Value="C:\Users\Mandar.Shinde\Desktop\Employee_Data.csv" Type="Path" />
+                  </InputFileDefinition>
+                  <SkipLines Value="0" Type="Number" />
+                  <MaxLines Value="0" Type="Number" />
+                  <Separator SeparatorType="Comma" />
+                  <Encoding EncodingType="UTF8" />
+                </ImportDelimitedTextAction>
+              </Actions>
+              <AnalysisView Version="2" AppVersion="5.9.1.6" LayoutMode="Filters" />
+            </Table>
+            <Table Name="Employee_Data.csv (2)" Left="484" Top="0" Width="210" Height="228" IsMinimized="false" ActiveActionIndex="3" ViewMode="Table">
+              <Actions>
+                <DeriveTableAction SourceTableName="Employee_Data.csv" IsConditional="false" />
+                <KeepRemoveColumnsAction Mode="Keep">
+                  <ColumnNames>
+                    <Item>DepartmentID</Item>
+                    <Item>DepartmentName</Item>
+                  </ColumnNames>
+                </KeepRemoveColumnsAction>
+                <DeduplicateAction CompareAllColumns="false">
+                  <ColumnNames>
+                    <Item>DepartmentID</Item>
+                    <Item>DepartmentName</Item>
+                  </ColumnNames>
+                </DeduplicateAction>
+                <ExportDbAction AutoStatus="true" UseCustomSql="false" CustomSql="" BatchSize="100" ColumnTypeMismatchOption="FailBatch" BatchFailureOption="Halt" ColumnMappingMode="Automatic">
+                  <DataConnectorDefinition IsShared="true" Type="List" Name="EasyMorphSQLConnector" />
+                  <TableName Value="dbo.Departments" Type="List" />
+                </ExportDbAction>
+              </Actions>
+              <AnalysisView Version="2" AppVersion="5.9.1.6" LayoutMode="Filters" />
+            </Table>
+            <Table Name="Employee_Data.csv (3)" Left="1" Top="253" Width="260" Height="229" IsMinimized="false" ActiveActionIndex="3" ViewMode="Table">
+              <Actions>
+                <DeriveTableAction SourceTableName="Employee_Data.csv" IsConditional="false" />
+                <KeepRemoveColumnsAction Mode="Keep">
+                  <ColumnNames>
+                    <Item>EmployeeID</Item>
+                    <Item>EmployeeName</Item>
+                    <Item>ManagerID</Item>
+                  </ColumnNames>
+                </KeepRemoveColumnsAction>
+                <DeduplicateAction CompareAllColumns="false">
+                  <ColumnNames>
+                    <Item>EmployeeID</Item>
+                    <Item>EmployeeName</Item>
+                    <Item>ManagerID</Item>
+                  </ColumnNames>
+                </DeduplicateAction>
+                <ExportDbAction AutoStatus="true" UseCustomSql="false" CustomSql="" BatchSize="100" ColumnTypeMismatchOption="FailBatch" BatchFailureOption="Halt" ColumnMappingMode="Automatic">
+                  <DataConnectorDefinition IsShared="true" Type="List" Name="EasyMorphSQLConnector" />
+                  <TableName Value="dbo.Employees" Type="List" />
+                </ExportDbAction>
+              </Actions>
+              <AnalysisView Version="2" AppVersion="5.9.1.6" LayoutMode="Filters" />
+            </Table>
+            <Table Name="Employee_Data.csv (4)" Left="482" Top="256" Width="208" Height="232" IsMinimized="false" ActiveActionIndex="3" ViewMode="Table">
+              <Actions>
+                <DeriveTableAction SourceTableName="Employee_Data.csv" IsConditional="false" />
+                <KeepRemoveColumnsAction Mode="Keep">
+                  <ColumnNames>
+                    <Item>EmployeeID</Item>
+                    <Item>DepartmentID</Item>
+                  </ColumnNames>
+                </KeepRemoveColumnsAction>
+                <DeduplicateAction CompareAllColumns="false">
+                  <ColumnNames>
+                    <Item>EmployeeID</Item>
+                    <Item>DepartmentID</Item>
+                  </ColumnNames>
+                </DeduplicateAction>
+                <ExportDbAction AutoStatus="true" UseCustomSql="false" CustomSql="" BatchSize="100" ColumnTypeMismatchOption="FailBatch" BatchFailureOption="Halt" ColumnMappingMode="Automatic">
+                  <DataConnectorDefinition IsShared="true" Type="List" Name="EasyMorphSQLConnector" />
+                  <TableName Value="dbo.EmployeeDepartment" Type="List" />
+                </ExportDbAction>
+              </Actions>
+              <AnalysisView Version="2" AppVersion="5.9.1.6" LayoutMode="Filters" />
+            </Table>
+          </Tables>
+        </Group>
+      </Groups>
+      <Parameters />
+      <Report UseCustomFileNameForPdfExport="false" ShowPageBorders="true">
+        <Pages>
+          <Page Name="Page 1" IncludeInReport="true">
+            <ReportObjects />
+          </Page>
+        </Pages>
+        <PageSetup Orientation="Landscape" Margin="Narrow" Size="Letter" />
+      </Report>
+    </Module>
+  </Modules>
+  <ProtectedDataConnectors />
+  <Resources />
+</Project>
