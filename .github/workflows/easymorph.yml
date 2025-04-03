@@ -1,13 +1,13 @@
-name: Run EasyMorph File on Windows
+name: Run PowerShell Command on Repository Changes
 
 on:
   push:
-    paths:
-      - '**/*.morph'  # Triggers when any .morph file is pushed
-  workflow_dispatch: # Allows manual execution from GitHub Actions UI
+    branches:
+      - main  # Runs when changes are pushed to the main branch
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
 
 jobs:
-  run-easymorph:
+  run-command:
     runs-on: windows-latest
 
     steps:
@@ -18,6 +18,6 @@ jobs:
         run: |
           Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 
-      - name: Run EasyMorph File
+      - name: Run PowerShell Command
         run: |
-          powershell -ExecutionPolicy Bypass -Command "& 'Morph.exe' 'C:\Users\Mandar.Shinde\Repository\EasyMorph\employee_department_table.morph'"
+          powershell -ExecutionPolicy Bypass -Command "C:\Users\Mandar.Shinde\Repository\EasyMorph\run-morph.ps1"
