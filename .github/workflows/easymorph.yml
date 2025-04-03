@@ -14,10 +14,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Debug: Show Current Directory
+        run: Get-Location
+
+      - name: Debug: List Files in Directory
+        run: Get-ChildItem -Path "${{ github.workspace }}\EasyMorph"
+
+      - name: Check if PowerShell Script Exists
+        run: |
+          if (Test-Path "${{ github.workspace }}\EasyMorph\run-morph.ps1") {
+            Write-Host "Script exists"
+          } else {
+            Write-Host "Script does NOT exist!"
+            exit 1
+          }
+
       - name: Set Execution Policy
         run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
 
       - name: Run PowerShell Script
         run: |
           $scriptPath = "${{ github.workspace }}\EasyMorph\run-morph.ps1"
+          Write-Host "Running script at: $scriptPath"
           & $scriptPath
