@@ -1,0 +1,44 @@
+name: EasyMorph ETL Automation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-easymorph-dev:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install EasyMorph CLI
+        run: |
+          curl -o EasyMorphCLI.zip https://easymorph.com/download/EasyMorphCLI.zip
+          powershell -Command "Expand-Archive -Path EasyMorphCLI.zip -DestinationPath .\easymorph"
+
+      - name: Run EasyMorph for Development
+        run: .\easymorph\EasyMorphCMD.exe -file "employee_department_table.morph" -param "ENVIRONMENT=DEV"
+
+      - name: Notify Success
+        run: echo "EasyMorph Execution for Development Completed!"
+      
+  run-easymorph-staging:
+    needs: run-easymorph-dev
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install EasyMorph CLI
+        run: |
+          curl -o EasyMorphCLI.zip https://easymorph.com/download/EasyMorphCLI.zip
+          powershell -Command "Expand-Archive -Path EasyMorphCLI.zip -DestinationPath .\easymorph"
+
+      - name: Run EasyMorph for Staging
+        run: .\easymorph\EasyMorphCMD.exe -file "employee_department_table.morph" -param "ENVIRONMENT=STAGING"
+
+      - name: Notify Success
+        run: echo "EasyMorph Execution for Staging Completed!" 
