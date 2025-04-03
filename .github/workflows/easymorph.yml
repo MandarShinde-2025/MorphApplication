@@ -19,4 +19,5 @@ jobs:
 
       - name: Run PowerShell Script
         run: |
-          & "C:\Users\Mandar.Shinde\Repository\EasyMorph\run-morph.ps1"
+          $scriptPath = "${{ github.workspace }}\EasyMorph\run-morph.ps1"
+          & $scriptPath
